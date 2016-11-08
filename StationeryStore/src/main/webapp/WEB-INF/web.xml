@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	version="3.1">
+	<servlet>
+		<description></description>
+		<display-name>entrada</display-name>
+		<servlet-name>entrada</servlet-name>
+		<servlet-class>br.com.siger.stationery.ServeletStationery</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>header</servlet-name>
+		<servlet-class>br.com.siger.stationery.ServletHeader</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>carrinho</servlet-name>
+		<servlet-class>br.com.siger.stationery.ServletCarrinho</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>entrada</servlet-name>
+		<url-pattern>/entrada</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>carrinho</servlet-name>
+		<url-pattern>/carrinho</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>header</servlet-name>
+		<url-pattern>/topo</url-pattern>
+	</servlet-mapping>
+</web-app>
