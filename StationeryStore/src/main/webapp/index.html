@@ -1,61 +1,91 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Stationery Store</title>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel=StyleSheet href="css/ss.css" type="text/css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>Minha Página</title>
+	
+	<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="img/favicon.ico" type="image/x-icon">
+
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/index.css">
 </head>
-<body bgcolor='#FFFFFF'>
-	<div>
-		<table border=0 cellspacing=0 cellpadding=0>
-			<tr>
-				<td><img border="0" src="imagens/main01.png" width="131"
-					height="131"></td>
-				<td><img border="0" src="imagens/main02.png" width="131"
-					height="131"></td>
-				<td><img border="0" src="imagens/main03.png" width="131"
-					height="131"></td>
-				<td><h1>
-						<font color="#0000ff" face="Arial">Stationery</font><font
-							color="#000080" face="Arial">Store</font></td>
-				</h1>
-				<td><img border="0" src="imagens/main04.png" width="66"
-					height="131"></td>
-			</tr>
-		</table>
+<body>
+	<nav class="navbar navbar-lg navbar-inverse navbar-static-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a href="index.html" class="navbar-brand logotipo">
+					<img src="img/stationery-store-logo.png" alt="Stationery Store">
+				</a>
+			</div>
+			<div class="collapse navbar-collapse" id="menu">
+				<ul class="nav navbar-nav">
+					<li><a href="">Ofertas</a></li>
+					<li><a href="">Loja</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li>
+						<a href="" class="dropdown-toggle" data-toggle="dropdown">
+							Minha Conta
+							<span class="caret"></span>
+						</a>
+						<div class="dropdown-menu perfil">
+							<div class="col-sm-4 hidden-xs">
+								<img class="img-responsive img-rounded" src="https://api.adorable.io/avatars/100/watchuru.png">
+							</div>
+							<ul class="list-unstyled col-sm-8">
+								<li>Fulano de Tal</li>
+								<li><a href="">Alterar Perfil</a></li>
+								<li><a href="">Sair</a></li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class="container">
+		<ol class="breadcrumb">
+			<li class="active">Início</li>
+		</ol>
+
+		<div class="jumbotron">
+			<h2>Segundo a Wikipedia:</h2>
+			<blockquote>
+				<p>
+					Uma <strong>loja virtual</strong> designa uma página na internet
+					dotada de um software de gerenciamento de pedidos (usualmente na
+					forma de carrinho de compras) na qual empresas podem oferecer e
+					vender seus produtos. Os clientes acessam o site, escolhem os
+					produtos para aquisição, a forma de pagamento e recebem estes
+					produtos em casa [<a
+						href="http://pt.wikipedia.org/wiki/Loja_virtual">Wikipedia|Loja
+						Virtual</a>].
+				</p>
+			</blockquote>
+			<blockquote>
+				<p>
+					O termo <strong>stationery</strong> é o nome geral dado para papel
+					e outros materiais de escritório, tais como envelopes, blocos de
+					anotações, canetas, lápis, borrachas, clips, grampos etc [<a
+						href="http://en.wikipedia.org/wiki/Stationery">Wikipedia|Stationey</a>].
+					Assim <strong>Stationery Store</strong> designa papelaria.
+				</p>
+			</blockquote>
+		</div>
+
 	</div>
-	<table border=0 cellspacing=0 cellpadding=2 width="640">
-		<tr>
-			<td valign="TOP" width="262">
-				<p>
-					<b><a href="/stationery/ofertas">Ofertas</a></b>
-				</p>
-				<p>
-					<a href="/stationery/catalogo">Loja</a>
-				</p>
-	</td>
-	<td valign="TOP"bgcolor="#BFFFBF">
-		<p>Segundo a Wikipedia:</p>
-		<blockquote>
-			Uma <b>loja virtual</b> designa uma página na interne dotada de um
-			software de gerenciamentode pedidos (usualmente na forma de um
-			carrinho de compras) na qual empresas podem oferece e vender seus
-			produtos. Os clientes acessam o site, escolhem os produtos para
-			aquisição, a forma de pagaento e recebem estes produtos em casa [<a
-				href="http:://pt.wikipedia.org/wiki/Loja_virutal">Wikipedia|Loja
-				Virtual</a>].
-		</blockquote>
-		<blockquote>
-			O termo <b><em>stationery</em></b> é o nome geral dado para papel e
-			outros materiais de escritório, tais como envolopes, blocos de
-			anotações canetas, lápis, borracha, clips, grampos etc [<a
-				href="http://en.wikipedia.org/wiki/Stationery">Wikipedia|Sationery</a>].
-			Assim <b><em>Stationer store</em></b> desgina papelaria.
-		</blockquote>
-	</td>
-	</tr>
-	</table>
-	<p>Copyright 2006 Jandl.</p>
+
+	<script type="text/javascript" src="js/jquery-2.2.4.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
 </body>
 </html>

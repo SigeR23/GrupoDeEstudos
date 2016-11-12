@@ -17,6 +17,15 @@
 		<servlet-name>carrinho</servlet-name>
 		<servlet-class>br.com.siger.stationery.ServletCarrinho</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>carrinho2</servlet-name>
+		<servlet-class>br.com.siger.stationery.ServletCarrinho2</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>ofertas</servlet-name>
+		<servlet-class>br.com.siger.stationery.ServletOfertas</servlet-class>
+	</servlet>
+	
 	<servlet-mapping>
 		<servlet-name>entrada</servlet-name>
 		<url-pattern>/entrada</url-pattern>
@@ -26,7 +35,17 @@
 		<url-pattern>/carrinho</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
+		<servlet-name>carrinho2</servlet-name>
+		<url-pattern>/carrinho2</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ofertas</servlet-name>
+		<url-pattern>/ofertas</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
 		<servlet-name>header</servlet-name>
 		<url-pattern>/topo</url-pattern>
 	</servlet-mapping>
+	
 </web-app>
