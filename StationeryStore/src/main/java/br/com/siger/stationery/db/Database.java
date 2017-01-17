@@ -1,5 +1,6 @@
 package br.com.siger.stationery.db;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,16 +9,24 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.money.CurrencyUnit;
+import javax.money.Monetary;
+import javax.money.MonetaryAmount;
+
+import org.javamoney.moneta.Money;
+
 import br.com.siger.stationery.model.Produto;
 import br.com.siger.stationery.model.Setor;
 
 public class Database {
+	private static final CurrencyUnit CURRENCY = Monetary.getCurrency("BRL");
 	private List<Produto> produtos;
 	private List<Setor> setores;
 	private static Database instance = null;
 	private Connection con = null;
-	private static String sql1 = "select id, descricao, id_setor, fabricante, complemento, preco, oferta from produtos";
-	private static String sql2 = "selet id, descricao from setores";
+	private static final String SQL_PRODUTO = "select PRD_ID, PRD_DESCRICAO, STR_ID, PRD_FABRICANTE, PRD_COMPLEMENTO, PRD_PRECO, PRD_EM_OFERTA FROM TB_PRODUTO";
+	private static String sql2 = "select id, descricao from setores";
+	private static final String SQL_SETORES = "SELECT STR_ID, STR_DESCRICAO FROM TB_SETOR";
 
 	private Database() {
 		produtos = new ArrayList<>();
@@ -56,12 +65,12 @@ public class Database {
 		
 		try {
 			System.out.println("[Database.getProdutorPorId] produto retrieve");
-			String query = sql1 + " where ID = ?";
+			String query = SQL_PRODUTO + " where ID = ?";
 			PreparedStatement stmt = con.prepareStatement(query);
 			stmt.setString(1, id);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
-				p = new Produto(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getFloat(6), rs.getBoolean(7));
+				p = new Produto(rs.getLong(1), rs.getString(2), getSetorPorID(rs.getLong(3)), rs.getString(4), rs.getString(5),convertFrom( rs.getBigDecimal(6)), rs.getBoolean(7));
 			}
 			rs.close();
 			stmt.close();
@@ -79,22 +88,22 @@ public class Database {
 			PreparedStatement stmt = null;
 			switch (idSetor) {
 			case -1:
-				query = sql1 + " order by descricao";
+				query = SQL_PRODUTO + " order by descricao";
 				stmt = con.prepareStatement(query);
 				break;
 			case 0:
-				query = sql1 + " where oferta = true order by descricao";
+				query = SQL_PRODUTO + " where oferta = true order by descricao";
 				stmt = con.prepareStatement(query);
 				break;
 			default:
-				query = sql1 + " where id_setor = ? order by descricao";
+				query = SQL_PRODUTO + " where id_setor = ? order by descricao";
 				stmt = con.prepareStatement(query);
 				stmt.setInt(1, idSetor);
 			}
 			ResultSet rs = stmt.executeQuery();
 			Produto p = null;
 			while (rs.next()) {
-				p = new Produto(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getFloat(6), rs.getBoolean(7));
+				p = new Produto(rs.getLong(1), rs.getString(2), getSetorPorID(rs.getLong(3)), rs.getString(4), rs.getString(5),convertFrom( rs.getBigDecimal(6)), rs.getBoolean(7));
 				produtos.add(p);
 			}
 			rs.close();
@@ -131,7 +140,7 @@ public class Database {
 			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
-				s = new Setor(rs.getInt(1), rs.getString(2));
+				s = new Setor(rs.getLong(1), rs.getString(2));
 			}
 			rs.close();
 			stmt.close();
@@ -151,7 +160,7 @@ public class Database {
 			ResultSet rs = stmt.executeQuery();
 			Setor s = null;
 			while (rs.next()) {
-				s = new Setor(rs.getInt(1), rs.getString(2));
+				s = new Setor(rs.getLong(1), rs.getString(2));
 				setores.add(s);
 			}
 			rs.close();
@@ -161,5 +170,28 @@ public class Database {
 		}
 		return setores;
 		
+	}
+	
+	private MonetaryAmount convertFrom(BigDecimal dbData) {
+		return Money.of(dbData, CURRENCY);
+	}
+	
+	private Setor getSetorPorID(Long id) {
+		String query = SQL_SETORES.concat(String.format(" WHERE STR_ID ?"));
+		Setor setor = null;
+		try {
+			PreparedStatement stmt = con.prepareStatement(query);
+			stmt.setLong(1, id);
+			ResultSet rs = stmt.executeQuery();
+			if(rs.next()) {
+				setor = new Setor(rs.getLong(1), rs.getString(2));
+			}
+			stmt.close();
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return setor;	
 	}
 }

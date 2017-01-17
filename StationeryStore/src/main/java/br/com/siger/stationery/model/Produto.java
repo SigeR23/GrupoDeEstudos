@@ -1,16 +1,56 @@
 package br.com.siger.stationery.model;
 
-public class Produto implements Comparable{
-	private String id = null;
+import java.io.Serializable;
+
+import javax.money.MonetaryAmount;
+import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import br.com.siger.stationery.converter.MonetaryAmountConverter;
+@Entity
+@Table(name = "TB_PRODUTO")
+public class Produto implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "PRD_ID")
+	private Long id;
+	
+	@Column(name = "PRD_DESCRICAO", length = 64, nullable = false)
 	private String descricao = null;
-	private int setor = 0;
+	
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "STR_ID")
+	private Setor setor;
+	
+	@Column(name = "PRD_FABRICANTE", length = 64, nullable = false)
 	private String fabricante = null;
+	
+	@Column(name = "PRD_COMPLEMENTO", length = 192)
 	private String complemento = null;
-	private float preco = 0.0F;
+	
+	@Column(name = "PRD_PRECO")
+	@Convert(converter = MonetaryAmountConverter.class)
+	private MonetaryAmount preco;
+	
+	@Column(name = "PRD_EM_OFERTA")
 	private boolean oferta = false;
 	
+	@Deprecated
+	public Produto() {
+		
+	}
 	
-	public Produto(String id, String descricao, int setor, String fabricante, String complemento, float preco,
+	
+	public Produto(Long id, String descricao, Setor setor, String fabricante, String complemento, MonetaryAmount preco,
 			boolean oferta) {
 		this.id = id;
 		this.descricao = descricao;
@@ -21,11 +61,11 @@ public class Produto implements Comparable{
 		this.oferta = oferta;
 	}
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -37,11 +77,11 @@ public class Produto implements Comparable{
 		this.descricao = descricao;
 	}
 
-	public int getSetor() {
+	public Setor getSetor() {
 		return setor;
 	}
 
-	public void setSetor(int setor) {
+	public void setSetor(Setor setor) {
 		this.setor = setor;
 	}
 
@@ -61,11 +101,13 @@ public class Produto implements Comparable{
 		this.complemento = complemento;
 	}
 
-	public float getPreco() {
+	
+
+	public MonetaryAmount getPreco() {
 		return preco;
 	}
 
-	public void setPreco(float preco) {
+	public void setPreco(MonetaryAmount preco) {
 		this.preco = preco;
 	}
 
@@ -77,16 +119,38 @@ public class Produto implements Comparable{
 		this.oferta = oferta;
 	}
 
-	public int compareTo(Object o) {
-		Produto p = (Produto) o;
-		
-		return descricao.compareTo(p.descricao);
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
 	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Produto other = (Produto) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+
 
 	@Override
 	public String toString() {
-		return "Produto [id=" + id + ", descricao=" + descricao + ", setor=" + setor + ", fabricante=" + fabricante
-				+ ", complemento=" + complemento + ", preco=" + preco + ", oferta=" + oferta + "]";
+		return "Produto [id=" + id + ", descricao=" + descricao + ", preco=" + preco + "]";
 	}
 	
+	
+
 }
