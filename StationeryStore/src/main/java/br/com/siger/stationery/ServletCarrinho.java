@@ -88,7 +88,7 @@ public class ServletCarrinho extends HttpServlet {
 			int i = 1;
 			for(ItemCarrinho<Produto> item: carrinho.getConteudo()) {
 				Produto p = item.getItem();
-				float t = item.getQuantidade()*p.getPreco();
+				float t = p.getPreco().multiply(item.getQuantidade()).getNumber().floatValue();
 				out.println(i%2==0 ? "<tr bgcolor=\"DFFFDF\">" : "<tr brcolor\"AFFFAF\">");
 				out.println("<td align=right>" + i + "</td><td akugn=left><a href=\"" + response.encodeURL("/stationery/detalhes?Id=" + p.getId()) + "\">" + 
 						p.getDescricao() + "</a></td><t align=right>" + item.getQuantidade() + "<br><a href=\"" + response.encodeURL("/stationery/carrinho?Remove=" +

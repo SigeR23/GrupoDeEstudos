@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import javax.persistence.EntityManager;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -12,7 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import br.com.siger.repository.Produtos;
 import br.com.siger.stationery.db.Database;
+import br.com.siger.stationery.db.JPAUtil;
 import br.com.siger.stationery.model.Carrinho;
 import br.com.siger.stationery.model.Produto;
 
@@ -26,13 +29,6 @@ public class ServletOfertas extends HttpServlet {
 	private static final String DB_KEY = "stationary.db";
 	private static final String CARRINHO_KEY = "stationary.carrinho";
 
-	public void init() throws ServletException {
-		db = (Database) getServletContext().getAttribute(DB_KEY);
-		if (db == null) {
-			db = Database.getInstance();
-			getServletContext().setAttribute(DB_KEY, db);
-		}
-	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -47,19 +43,17 @@ public class ServletOfertas extends HttpServlet {
 			carrinho = new Carrinho();
 			session.setAttribute(CARRINHO_KEY, carrinho);
 		}
-		List<Produto> produtos = db.getProdutos(0);
+		EntityManager manager = JPAUtil.getEntityManager();
+		Produtos repositorio = new Produtos(manager);
+		
+		List<Produto> produtos = repositorio.todos();
 		
 		ServletContext sc = getServletContext();
 		RequestDispatcher dispatcher = sc.getRequestDispatcher("/ofertas.jsp");
 		request.setAttribute("Produtos", produtos);
 		dispatcher.forward(request, response);
 		
-		
-	}
-
-	public void destroy() {
-		db = null;
-	}
+	}		
 
 	public String getServletInfo() {
 		return "Servlet de exibição do conteudo do carrinho de compras " + "que tambem permite exclusão deitens";

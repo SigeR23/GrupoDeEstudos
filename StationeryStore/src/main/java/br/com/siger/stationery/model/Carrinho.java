@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.money.MonetaryAmount;
+
 public class Carrinho {
 	private Map<String, ItemCarrinho<Produto>> conteudo = null;
 	private int totalDeItens = 0;
@@ -53,9 +55,10 @@ public class Carrinho {
 		double total = 0.0;
 		for(ItemCarrinho<Produto> item : getConteudo()) {
 			Produto produto = item.getItem();
-			total += item.getQuantidade()  * produto.getPreco();
+			total += (produto.getPreco()).multiply(item.getQuantidade()).getNumber().doubleValue();
 		}
 		return Math.round(total*100)/100.0;
+		
 	}
 	
 	public void clear () {
