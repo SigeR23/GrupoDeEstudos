@@ -1,4 +1,4 @@
-package br.com.siger.repository;
+package br.com.siger.stationery.repository;
 
 import java.io.Serializable;
 import java.util.List;

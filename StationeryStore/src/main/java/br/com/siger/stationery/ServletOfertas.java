@@ -13,11 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import br.com.siger.repository.Produtos;
 import br.com.siger.stationery.db.Database;
 import br.com.siger.stationery.db.JPAUtil;
 import br.com.siger.stationery.model.Carrinho;
 import br.com.siger.stationery.model.Produto;
+import br.com.siger.stationery.repository.Produtos;
 
 /**
  * Servlet implementation class ServletCarrinho
