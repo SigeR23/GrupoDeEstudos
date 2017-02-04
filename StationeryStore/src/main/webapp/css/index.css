@@ -52,7 +52,9 @@
 .paginacao .pagination {
 	margin: 0;
 }
-
+.caption h3 {
+	height: 60px;
+}
 blockquote {
 	border-left: 10px solid #fff;
 }

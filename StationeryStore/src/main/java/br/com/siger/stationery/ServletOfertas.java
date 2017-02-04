@@ -46,11 +46,21 @@ public class ServletOfertas extends HttpServlet {
 		EntityManager manager = JPAUtil.getEntityManager();
 		Produtos repositorio = new Produtos(manager);
 		
-		List<Produto> produtos = repositorio.todos();
+		Produto produto = null;
+		String msg = null;
+		String idProduto = request.getParameter("Add");
+		if(idProduto != null) {
+			produto = repositorio.porId(Long.parseLong(idProduto));
+			carrinho.add(produto);
+			msg = "Produto adcionado ao carrinho com sucesso";
+		}
+		
+		List<Produto> produtos = repositorio.emOferta();
 		
 		ServletContext sc = getServletContext();
-		RequestDispatcher dispatcher = sc.getRequestDispatcher("/ofertas.jsp");
+		RequestDispatcher dispatcher = sc.getRequestDispatcher("/WEB-INF/templates/ofertas.jsp");
 		request.setAttribute("Produtos", produtos);
+		request.setAttribute("msg", msg);
 		dispatcher.forward(request, response);
 		
 	}		

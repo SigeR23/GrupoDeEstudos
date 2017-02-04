@@ -14,13 +14,14 @@ public class Carrinho {
 	public Carrinho() {
 		conteudo = new HashMap<>();
 	}
-	public void add(String idProduto, Produto produto) {
-		if(conteudo.containsKey(idProduto)) {
-			ItemCarrinho item = conteudo.get(idProduto);
+	public void add(Produto produto) {
+		String key = produto.getId().toString();
+		if(conteudo.containsKey(key)) {
+			ItemCarrinho item = conteudo.get(key);
 			item.setQuantidade(item.getQuantidade() + 1);
 		} else {
 			ItemCarrinho<Produto> item = new ItemCarrinho<Produto>(produto);
-			conteudo.put(idProduto, item);
+			conteudo.put(key, item);
 			totalProdutos++;
 		}
 		totalDeItens++;
