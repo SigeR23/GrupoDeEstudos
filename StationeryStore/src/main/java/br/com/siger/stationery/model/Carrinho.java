@@ -28,13 +28,14 @@ public class Carrinho {
 		
 	}
 	
-	public void remove(String idDoProduto) {
-		if(conteudo.containsKey(idDoProduto)) {
-			ItemCarrinho item = conteudo.get(idDoProduto);
+	public void remove(Produto produto) {
+		String key = produto.getId().toString();
+		if(conteudo.containsKey(key)) {
+			ItemCarrinho item = conteudo.get(key);
 			item.setQuantidade(item.getQuantidade() -1);
 			totalDeItens--;
 			if(item.getQuantidade() <= 0) {
-				conteudo.remove(idDoProduto);
+				conteudo.remove(key);
 				totalProdutos--;
 			}
 		}

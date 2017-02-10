@@ -62,7 +62,7 @@ public class ServletCarrinhoOld extends HttpServlet {
 		String idProduto = request.getParameter("Remove");
 		if(idProduto != null) {
 			produto = db.getProdutoPorId(idProduto);
-			carrinho.remove(idProduto);
+			carrinho.remove(produto);
 		} else if (request.getParameter("Clear") != null) {
 			carrinho.clear();
 		}

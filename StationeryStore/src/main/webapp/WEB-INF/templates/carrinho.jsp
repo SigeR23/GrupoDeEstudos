@@ -18,6 +18,14 @@
 		<ol class="breadcrumb">
 			<li class="active">Início</li>
 		</ol>
+		<c:if test="${not empty msg}">
+			<div class="alert alert-success alert-dismissible" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<c:out value="${msg }"/>
+			</div>
+		</c:if>
 
 
 		<table class="table table-striped">
@@ -37,11 +45,21 @@
 					<td>${produto.fabricante}</td>
 					<td>${produto.complemento}</td>
 					<td><fmt:formatNumber value="${produto.preco.number}"
-							type="currency" />
-					<td>
+							type="currency" /></td>
+					<td><a href="carrinho?remove=${produto.id }"><img src="img/icons/excluir.png" alt="remover"></a>
 				</tr>
 			</c:forEach>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<th> Total </th>
+				<td><fmt:formatNumber value="${total.number}" type="currency" /></td>
+				
+			</tr>
 		</table>
+		<a href="carrinho?clear=ok"><img src="img/icons/clear.png"/></a>
 	</div>
 </body>
 </html>
